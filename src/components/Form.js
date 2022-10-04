@@ -4,7 +4,6 @@ const Form = ({weatherSubmitHandler, input, setInput, weatherForecastHandler, in
   return (
     <>
   <div>
-      <h1>WetterDaten</h1>
     <form onSubmit={weatherSubmitHandler}>
       <input
         placeholder="your City"

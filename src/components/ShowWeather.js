@@ -9,7 +9,7 @@ const today = week[day]
   return (      
     <div className="weather-element-container">
       <div className="weather-ele1">
-        <h2 className="date">{`${today}, Heute`}</h2>
+        <h2 className="date">{`${today}, aktuell`}</h2>
         <div>{data.description}</div>
         <img src={data.icon} alt="weather-img" />
         <div>
