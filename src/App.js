@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
 import "./styles/app.css"
+
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import ShowWeather from "./components/ShowWeather";
 import Form from "./components/Form";
 import Weatherforecast from "./components/Weatherforecast";
+import ThreeHourForecast from "./components/ThreeHourForecast";
 
 
 const MY_KEY = "92cb5c99eca6dbce0543fae8e9d3b704";
@@ -12,12 +16,15 @@ function App() {
   const [weatherData, setWeatherData] = useState([]);
   const [inputForecast, setInputForecast] = useState("");
   const [weatherDataForecast, setWeatherDataForecast] = useState([]);
+  const [wholeData, setWholeData] = useState([])
     
   const weatherSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${input}&appid=${MY_KEY}&lang=de&units=metric`);      
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${input}&appid=${MY_KEY}&lang=de&units=metric`
+      );      
       const data = await response.json();
+      setWholeData(data)
       const newData = data.list.filter(item=> item.dt_txt.includes("12:00:00"))
       const fiveDayData = newData.map(item=>{
         return {"city":data.city.name, "country":data.city.country, "temp": item.main.temp, "feelsLike":item.main.feels_like, "date": item.dt_txt, "description":item.weather[0].description, "icon": `https://www.openweathermap.org/img/w/${item.weather[0].icon}.png`}
@@ -30,7 +37,7 @@ function App() {
         `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${MY_KEY}&units=metric&lang=de`
         );
         const data2 = await response2.json();
-        console.log("data2:", data2);
+        console.log("data1:", fiveDayData);
         const temp = data2.main.temp;
         const tempMax = data2.main.temp_max
         const tempMin = data2.main.temp_min
@@ -59,7 +66,7 @@ function App() {
       setWeatherDataForecast(weatherCast)
     }
   },[])
-
+  console.log(wholeData);
   return (
     <div className="App">    
         <div>
@@ -72,7 +79,11 @@ function App() {
         {weatherData.map((data)=><ShowWeather data={data}/>)}
       </div>
       <div className="weather-container">
-        {weatherDataForecast.map((data)=><Weatherforecast data={data}/>)}
+        <Routes>
+          <Route path="/" element={weatherDataForecast.map((data)=><Weatherforecast data={data}/>)}/>
+          <Route path="/:date" element={weatherDataForecast.map((data)=><ThreeHourForecast data={data} wholeData={wholeData}/>)}/>
+        </Routes>
+        {/* // {weatherDataForecast.map((data)=><Weatherforecast data={data}/>)} */}
       </div>
 
     </div>
