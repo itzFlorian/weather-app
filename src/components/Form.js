@@ -11,11 +11,11 @@ const Form = ({weatherSubmitHandler, input, setInput, weatherForecastHandler, in
         type="text"
         onChange={(event) => setInput(event.target.value)}
         value={input} />
-      <button>aktuelle Wetterdaten anzeigen</button>
+      <button>Wetterdaten anzeigen</button>
     </form>
   </div>
 
-  <div>
+  {/* <div>
     <form onSubmit={weatherForecastHandler}>
       <input
         placeholder="your city"
@@ -24,7 +24,7 @@ const Form = ({weatherSubmitHandler, input, setInput, weatherForecastHandler, in
         value={inputForecast} /> 
       <button>Wetterdaten 5 Tage anzeigen</button>
     </form>
-  </div>
+  </div> */}
     </>
 
   )
