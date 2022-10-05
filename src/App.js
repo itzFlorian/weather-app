@@ -80,10 +80,9 @@ function App() {
       </div>
       <div className="weather-container">
         <Routes>
-          <Route path="/" element={weatherDataForecast.map((data)=><Weatherforecast data={data}/>)}/>
-          <Route path="/:date" element={weatherDataForecast.map((data)=><ThreeHourForecast data={data} wholeData={wholeData}/>)}/>
+          <Route path="/" element={weatherDataForecast.map((data)=><Weatherforecast data={data} weatherDataForecast={weatherDataForecast}/>)}/>          
+          <Route path="/:date" element={<ThreeHourForecast wholeData={wholeData}/>}/>
         </Routes>
-        {/* // {weatherDataForecast.map((data)=><Weatherforecast data={data}/>)} */}
       </div>
 
     </div>

@@ -1,5 +1,6 @@
 .weather-container{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap:25px;
   margin:50px;
@@ -7,6 +8,7 @@
 .weather-element{
   display: flex;
   flex-direction: column;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
   background: linear-gradient(291deg, rgba(78,89,200,1) 8%, rgba(140,197,198,1) 61%);
   padding:25px;

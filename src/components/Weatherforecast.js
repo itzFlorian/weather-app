@@ -8,16 +8,13 @@ const Weatherforecast = ({data})=>{
   const day = date.getDay()
   const today = week[day] 
   return (
-    <>
-    <Link to={`/${data.date}`}>
       <div className="weather-element">
-        <div className="date">{`${today}, ${dateToString}`}</div>
+        <Link to={`/${data.date}`}><div className="date">{`${today}, ${dateToString}`}</div></Link> 
         <img src={data.icon} alt="weather-img" />
         <div className="temp">{`${data.temp}°C`}</div>
         <div className="feel-temp">{`gefühlt(${data.feelsLike})`}</div>
-      </div>    
-    </Link>   
-    </>
+      </div>      
+
   )
 }
 
