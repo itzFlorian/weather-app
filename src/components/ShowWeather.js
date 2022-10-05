@@ -1,15 +1,14 @@
-import "../styles/showWeather.css"
-
-const ShowWeather = ({data})=>{
+const ShowWeather = ({data, wholeData})=>{
 const week = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
 const date = new Date()
 const day = date.getDay()
 const today = week[day]
 
-  return (      
+  return (  
+    <>
     <div className="weather-element-container">
       <div className="weather-ele1">
-        <h2 className="date">{`${today}, aktuell`}</h2>
+        <h2 className="date center-txt">{`${today}, aktuell`}</h2>
         <div>{data.description}</div>
         <img src={data.icon} alt="weather-img" />
         <div>
@@ -22,7 +21,12 @@ const today = week[day]
         <p>{`Mindesttemperatur: ${data.tempMin}°C`}</p>
         <p>{`Windgeschwindigkeit: ${data.windSpeed}km/h`}</p>
       </div>
+    </div>
+    <div>
+      <div></div>
     </div>  
+    
+    </>    
 
   )
 }

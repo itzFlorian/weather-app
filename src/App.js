@@ -25,6 +25,7 @@ function App() {
       );      
       const data = await response.json();
       setWholeData(data)
+      localStorage.setItem("wholeData", JSON.stringify(wholeData))
       const newData = data.list.filter(item=> item.dt_txt.includes("12:00:00"))
       const fiveDayData = newData.map(item=>{
         return {"city":data.city.name, "country":data.city.country, "temp": item.main.temp, "feelsLike":item.main.feels_like, "date": item.dt_txt, "description":item.weather[0].description, "icon": `https://www.openweathermap.org/img/w/${item.weather[0].icon}.png`}
@@ -37,15 +38,14 @@ function App() {
         `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${MY_KEY}&units=metric&lang=de`
         );
         const data2 = await response2.json();
-        console.log("data1:", fiveDayData);
         const temp = data2.main.temp;
         const tempMax = data2.main.temp_max
         const tempMin = data2.main.temp_min
         const feelsLike = data2.main.feels_like
         const description = data2.weather[0].description
-        const windSpeed = data2.wind.speed
+        const windSpeed = data2.wind.speed   
         const icon = `https://www.openweathermap.org/img/w/${data2.weather[0].icon}.png`
-        const obj = { temp, tempMax, tempMin, feelsLike, description, icon, windSpeed }
+        const obj = { temp, tempMax, tempMin, feelsLike, description, icon, windSpeed, }
         const newWeather = [obj]        
         setWeatherData(newWeather)
         localStorage.setItem("weather", JSON.stringify(newWeather))
@@ -59,14 +59,17 @@ function App() {
   useEffect(() => {
     const weather = JSON.parse(localStorage.getItem("weather"))
     const weatherCast = JSON.parse(localStorage.getItem("forecast"))
+    const wholeData = JSON.parse(localStorage.getItem("wholeData"))
     if(weather !== null){
       setWeatherData(weather)
     }
     if(weatherCast !== null){
       setWeatherDataForecast(weatherCast)
     }
+    if(wholeData !== null){
+      setWholeData(wholeData)
+    }
   },[])
-  console.log(wholeData);
   return (
     <div className="App">    
         <div>
@@ -76,7 +79,7 @@ function App() {
 
       <h1>{weatherDataForecast.length ? weatherDataForecast[0].city : null}</h1>
       <div className="weather-container">
-        {weatherData.map((data)=><ShowWeather data={data}/>)}
+        {weatherData.map((data)=><ShowWeather data={data} wholeData={wholeData}/>)}
       </div>
       <div className="weather-container">
         <Routes>
