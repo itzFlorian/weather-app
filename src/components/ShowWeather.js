@@ -23,7 +23,7 @@ const today = week[day]
       </div>
     </div>
     <div>
-      <div></div>
+      <div>{}</div>
     </div>  
     
     </>    
