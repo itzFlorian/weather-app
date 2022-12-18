@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ThreeHourForecast = ({data, wholeData}) => {
   const {date} = useParams()
@@ -10,6 +11,7 @@ const ThreeHourForecast = ({data, wholeData}) => {
   const today = week[day] 
   const dateNow = dayList[0].dt_txt.slice(0,10).split("-").reverse().join(".")
   console.log(dayList);
+  const navigate = useNavigate()
 
   return (
     <>
@@ -22,9 +24,10 @@ const ThreeHourForecast = ({data, wholeData}) => {
             <img src={`https://www.openweathermap.org/img/w/${day.weather[0].icon}.png`} alt="weather-img" />
             <div className="temp">{`${day.main.temp}°C`}</div>
             <div className="feel-temp">{`(${day.main.feels_like}°C)`}</div>  
-          </div>         
+          </div> 
         )
       })}
+      <button onClick={() => navigate("/")}>back</button>
     </div>
     </>
   );
